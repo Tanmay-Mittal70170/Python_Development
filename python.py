@@ -38,6 +38,44 @@
 # output= "same" if s1==s2 else " not same"
 # print(output)
 
-s1=" Amit Singh "
-print(len(s1))
-print(len(s1.lstrip().rstrip()))
+# s1=" Amit Singh "
+# print(len(s1))
+# print(len(s1.lstrip().rstrip()))
+
+# s="python is a programming language. Python is easy to learn. Python is used in AI ML"
+# print(s.find("zython"))
+# print(s.index("Python",35))
+# print(s.rfind("Python"))
+# print(s.rfind("Zython"))
+# print(s.rindex("Python"))
+
+# output= "yes" if s.find("Python")!=-1 else "NO"
+# print(output) 
+# output= "yes" if "Python" in s else "No"
+# print(output)
+# s="python is a programming language. Python is easy of learn. Python is used in AI ML"
+# print(id(s))
+# s1=s.count("Python")
+# print(id(s))
+# print(s1)
+
+# for i in s:
+# #     print(i,s.count(i),end=" ") if s.count(i)>14 else None
+
+# s="Rajesh, Suresh, Ram, Mayank"
+# s1=s.split(",")
+# # print(s1)
+# # print(s,type(s))
+# # print(type(s.split(",")))
+
+# for item in s1:
+#     print(item, s1.count(item),end=",")
+
+# dob=input("enter the Dob")
+# # year=dob.split("/")
+# # print(year[2])
+# print(dob[dob.rfind("/")+1:])
+
+# l=["22","11","2024"]
+# s="/".join(l)
+# print(s)
