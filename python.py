@@ -146,15 +146,20 @@ for char in s:
 #     s1=+char[::2]
 # print(s)
 
-s=input("enter the string")
-p=" "
-for char in s:
-    if char not in p and s.count(char)>1:
-        p+=char+ str(s.count(char))+" "
-    else:
-        continue
-print(p)
-        
+# s=input("enter the string")
+# p=" "
+# for char in s:
+#     if char not in p and s.count(char)>1:
+#         p+=char+ str(s.count(char))+" "
+#     else:
+#         continue
+# print(p)
 
+# s="thequickbrownfoxjumpsoverlazydog"
+# sub=""
+# for i in s:
+#     if i not in sub and s.count(i)>1:
+#         sub+=i + " " + str(s.count(i)) + " "
+# print(sub.strip())
 
     
