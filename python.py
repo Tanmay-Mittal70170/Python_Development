@@ -140,11 +140,11 @@ for char in s:
 
 
 
-# s = input("enter the string")
-# s1=" "
-# for char in s.split():
-#     s1=+char[::2]
-# print(s)
+s = input("enter the string")
+s1=" "
+for char in s.split():
+    p=char[::2]
+    
 
 # s=input("enter the string")
 # p=" "
