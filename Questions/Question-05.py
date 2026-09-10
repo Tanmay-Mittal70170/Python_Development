@@ -15,6 +15,8 @@ avg=sum/6
 print(name,"sum of marks",sum)
 print(name,"average of marks",avg)
 
+# For printing the grade of the student
+
 if avg>=90 and avg<100:
     print(name,"Grade A+")
 elif avg>=80 and avg<89:
@@ -29,6 +31,8 @@ elif avg>=33 and avg<44:
     print(name,"Grade D")
 else:
     print(name,"Grade Fail")
+
+#To print whether the student is passed or not 
 
 if avg>33:
     print(name,"IS PASSED")

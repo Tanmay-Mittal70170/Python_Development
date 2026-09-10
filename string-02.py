@@ -52,3 +52,8 @@
 # else:
 #     print(name,"IS FAILED")
 
+s=input("enter the string")
+c=s[::2]
+print("even position characters are",c)
+h=s[1::2]
+print("odd positions characters are",h)
