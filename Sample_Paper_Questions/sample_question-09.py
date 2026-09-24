@@ -8,7 +8,7 @@ for i in range(n):
     marks = float(line[1])
     students[name] = marks
 
-topper = max(students, students.get(name))
+topper = max(students, key=students.get)
 average = sum(students.values()) / n
 
 print(topper)
