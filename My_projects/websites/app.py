@@ -170,6 +170,9 @@ def admin_dashboard():
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
 
+    # Get search query parameter from URL (e.g. /admin/dashboard?search=Tanmay)
+    search_query = request.args.get("search", "").strip()
+
     connection = connect_db()
     cursor = connection.cursor()
 
@@ -177,8 +180,23 @@ def admin_dashboard():
     cursor.execute("SELECT * FROM products")
     products = cursor.fetchall()
 
-    # Fetch orders history
-    cursor.execute("SELECT order_id, customer_name, customer_mobile, total_price, order_date FROM orders ORDER BY order_id DESC")
+    # Fetch orders based on search query or retrieve all
+    if search_query:
+        query = """
+            SELECT order_id, customer_name, customer_mobile, total_price, order_date 
+            FROM orders 
+            WHERE customer_name LIKE %s 
+               OR customer_mobile LIKE %s 
+               OR CAST(order_id AS CHAR) LIKE %s
+            ORDER BY order_id DESC
+        """
+        search_pattern = f"%{search_query}%"
+        cursor.execute(query, (search_pattern, search_pattern, search_pattern))
+    else:
+        cursor.execute(
+            "SELECT order_id, customer_name, customer_mobile, total_price, order_date FROM orders ORDER BY order_id DESC"
+        )
+
     orders = cursor.fetchall()
 
     cursor.close()
@@ -188,9 +206,9 @@ def admin_dashboard():
         "admin_dashboard.html",
         products=products,
         orders=orders,
-        username=session.get("admin_username")
+        username=session.get("admin_username"),
+        search_query=search_query
     )
-
 
 @app.route("/admin/add-product", methods=["POST"])
 def add_product():

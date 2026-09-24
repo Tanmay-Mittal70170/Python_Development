@@ -78,8 +78,27 @@
     </section>
 
     <!-- 3. VIEW ORDERS SECTION -->
+   <!-- 3. VIEW & SEARCH ORDERS SECTION -->
     <section class="admin-section">
-        <h2>🧾 Customer Orders History</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+            <h2 style="margin: 0;">🧾 Customer Orders History</h2>
+            
+            <!-- CUSTOMER SEARCH FORM -->
+            <form action="/admin/dashboard" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <input 
+                    type="text" 
+                    name="search" 
+                    placeholder="Search by Name, Mobile, or ID..." 
+                    value="{{ search_query }}"
+                    style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; width: 250px;"
+                >
+                <button type="submit" class="btn" style="padding: 8px 15px;">🔍 Search</button>
+                {% if search_query %}
+                    <a href="/admin/dashboard" style="color: #ef4444; text-decoration: none; font-size: 14px;">Clear Search</a>
+                {% endif %}
+            </form>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -91,19 +110,26 @@
                 </tr>
             </thead>
             <tbody>
-                {% for order in orders %}
-                <tr>
-                    <td>#{{ order[0] }}</td>
-                    <td>{{ order[1] }}</td>
-                    <td>{{ order[2] }}</td>
-                    <td>₹{{ order[3] }}</td>
-                    <td>{{ order[4] }}</td>
-                </tr>
-                {% endfor %}
+                {% if orders %}
+                    {% for order in orders %}
+                    <tr>
+                        <td>#{{ order[0] }}</td>
+                        <td>{{ order[1] }}</td>
+                        <td>{{ order[2] }}</td>
+                        <td>₹{{ order[3] }}</td>
+                        <td>{{ order[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #888; padding: 20px;">
+                            No customer orders found{% if search_query %} matching "{{ search_query }}"{% endif %}.
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </section>
-
 </main>
 
 </body>
