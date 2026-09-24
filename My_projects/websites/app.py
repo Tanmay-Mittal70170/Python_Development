@@ -156,11 +156,86 @@ def admin_login():
         connection.close()
 
         if admin:
-            return f"<h2>Welcome Admin {username}! Login Successful.</h2><br><a href='/'>Go to Home</a>"
+            session["admin_logged_in"] = True
+            session["admin_username"] = username
+            return redirect(url_for("admin_dashboard"))
         else:
             return "<h2>Invalid Credentials. <a href='/admin/login'>Try Again</a></h2>"
 
     return render_template("admin_login.html")
+
+
+@app.route("/admin/dashboard")
+def admin_dashboard():
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    connection = connect_db()
+    cursor = connection.cursor()
+
+    # Fetch products for inventory table
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+
+    # Fetch orders history
+    cursor.execute("SELECT order_id, customer_name, customer_mobile, total_price, order_date FROM orders ORDER BY order_id DESC")
+    orders = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return render_template(
+        "admin_dashboard.html",
+        products=products,
+        orders=orders,
+        username=session.get("admin_username")
+    )
+
+
+@app.route("/admin/add-product", methods=["POST"])
+def add_product():
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    name = request.form.get("name")
+    category = request.form.get("category")
+    price = float(request.form.get("price"))
+    product_unit = request.form.get("product_unit")
+    stock_quantity = int(request.form.get("stock_quantity"))
+
+    connection = connect_db()
+    cursor = connection.cursor()
+    cursor.execute(
+        "INSERT INTO products (name, category, price, product_unit, stock_quantity) VALUES (%s, %s, %s, %s, %s)",
+        (name, category, price, product_unit, stock_quantity)
+    )
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return redirect(url_for("admin_dashboard"))
+
+
+@app.route("/admin/delete-product/<int:product_id>", methods=["POST"])
+def delete_product(product_id):
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    connection = connect_db()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM products WHERE product_id = %s", (product_id,))
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return redirect(url_for("admin_dashboard"))
+
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop("admin_logged_in", None)
+    session.pop("admin_username", None)
+    return redirect(url_for("admin_login"))
 
 if __name__ == "__main__":
     app.run(debug=True)

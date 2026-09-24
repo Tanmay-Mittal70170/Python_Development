@@ -70,6 +70,10 @@
 #     if is_prime==True:
 #       print(num)
 
-L=[1,3,4,53,2]
-L.sort()
-print(L*2)
+name=input("enter the name")
+
+age=int(input("enter the age"))
+
+city=input("enter the city you lives in")
+
+print(f"Hello {name}, You are {age} Years Old and live in {city}. ")
