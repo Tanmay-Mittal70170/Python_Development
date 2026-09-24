@@ -61,3 +61,5 @@ while True:
     if attempts == 0:
         print("\nSorry! You are Out of Attempts. The Word Was:", select)
         break
+
+input("Press Enter To Exit...")
