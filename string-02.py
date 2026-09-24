@@ -69,3 +69,7 @@
 
 #     if is_prime==True:
 #       print(num)
+
+L=[1,3,4,53,2]
+L.sort()
+print(L*2)
