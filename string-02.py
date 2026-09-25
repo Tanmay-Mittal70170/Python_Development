@@ -70,10 +70,15 @@
 #     if is_prime==True:
 #       print(num)
 
-name=input("enter the name")
+L=[]
 
-age=int(input("enter the age"))
+for x in range(3):
+    rollno=int(input("enter the roll no"))
+    name=input("enter the name")
+    email=input("enter the email")
+    phone=int(input("enter the phone number"))
+    t=rollno, name, email, phone
+    L.append(t)
 
-city=input("enter the city you lives in")
-
-print(f"Hello {name}, You are {age} Years Old and live in {city}. ")
+for r,n,e,p in L:
+    print("%5d %-15s %20s %10d"%(r,n,e,p))
