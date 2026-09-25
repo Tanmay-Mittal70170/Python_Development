@@ -12,6 +12,27 @@ def connect_db():
         database="shopping"
     )
 
+@app.route("/admin/add-stock/<int:product_id>", methods=["POST"])
+def add_stock(product_id):
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    added_stock = int(request.form.get("added_stock", 0))
+
+    if added_stock > 0:
+        connection = connect_db()
+        cursor = connection.cursor()
+        # Increases existing stock by the entered quantity
+        cursor.execute(
+            "UPDATE products SET stock_quantity = stock_quantity + %s WHERE product_id = %s",
+            (added_stock, product_id)
+        )
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+    return redirect(url_for("admin_dashboard"))
+
 @app.route("/")
 def home():
     return render_template("index.html")

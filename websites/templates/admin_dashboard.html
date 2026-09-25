@@ -43,6 +43,7 @@
     </section>
 
     <!-- 2. PRODUCT MANAGEMENT TABLE -->
+    <!-- 2. PRODUCT MANAGEMENT TABLE -->
     <section class="admin-section">
         <h2>📦 Inventory Management</h2>
         <table>
@@ -53,7 +54,8 @@
                     <th>Category</th>
                     <th>Price</th>
                     <th>Unit</th>
-                    <th>Stock</th>
+                    <th>Current Stock</th>
+                    <th>Add Stock</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -65,7 +67,21 @@
                     <td>{{ product[2] }}</td>
                     <td>₹{{ product[3] }}</td>
                     <td>{{ product[5] }}</td>
-                    <td>{{ product[4] }}</td>
+                    <td><strong>{{ product[4] }}</strong></td>
+                    <td>
+                        <!-- QUICK ADD STOCK FORM -->
+                        <form action="/admin/add-stock/{{ product[0] }}" method="POST" style="display: flex; gap: 5px; align-items: center;">
+                            <input 
+                                type="number" 
+                                name="added_stock" 
+                                min="1" 
+                                placeholder="+ Qty" 
+                                required 
+                                style="width: 75px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;"
+                            >
+                            <button type="submit" class="btn" style="padding: 5px 10px; font-size: 13px; background-color: #10b981;">+ Add</button>
+                        </form>
+                    </td>
                     <td>
                         <form action="/admin/delete-product/{{ product[0] }}" method="POST" onsubmit="return confirm('Delete this product?');">
                             <button class="delete-btn">Delete</button>
@@ -76,7 +92,6 @@
             </tbody>
         </table>
     </section>
-
     <!-- 3. VIEW ORDERS SECTION -->
    <!-- 3. VIEW & SEARCH ORDERS SECTION -->
     <section class="admin-section">
