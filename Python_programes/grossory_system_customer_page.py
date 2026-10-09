@@ -132,3 +132,9 @@ while character == "Y":
         print("Invalid choice! Please select a number from 1 to 6.")
 
     character = input("\nDo you want to continue to main menu? (Y/N): ").strip().upper()
+    print(" " * 16, "1. View Items")
+    print(" " * 16, "2. Add Item to Cart")
+    print(" " * 16, "3. Remove Item from Cart")
+    print(" " * 16, "4. View Cart")
+    print(" " * 16, "5. Checkout")
+    print(" " * 16, "6. Exit\n")
